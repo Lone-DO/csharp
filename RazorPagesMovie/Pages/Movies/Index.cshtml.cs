@@ -19,7 +19,7 @@ namespace RazorPagesMovie.PagesMovies
             _context = context;
         }
 
-        public IList<Movie> Movie { get;set; }
+        public IList<Movie> Movie { get; set; }
 
         public async Task OnGetAsync()
         {
