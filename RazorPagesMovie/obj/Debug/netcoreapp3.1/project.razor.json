@@ -20526,8 +20526,23 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\PagesMovies\\Details.cshtml",
-      "TargetPath": "PagesMovies\\Details.cshtml",
+      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Movies\\Edit.cshtml",
+      "TargetPath": "Pages\\Movies\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Movies\\Delete.cshtml",
+      "TargetPath": "Pages\\Movies\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Movies\\Index.cshtml",
+      "TargetPath": "Pages\\Movies\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Movies\\Details.cshtml",
+      "TargetPath": "Pages\\Movies\\Details.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -20546,18 +20561,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\PagesMovies\\Edit.cshtml",
-      "TargetPath": "PagesMovies\\Edit.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\PagesMovies\\Index.cshtml",
-      "TargetPath": "PagesMovies\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -20566,13 +20571,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\PagesMovies\\Create.cshtml",
-      "TargetPath": "PagesMovies\\Create.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\PagesMovies\\Delete.cshtml",
-      "TargetPath": "PagesMovies\\Delete.cshtml",
+      "FilePath": "c:\\DevWorkshop\\home\\CodeLouisville\\C#\\RazorPagesMovie\\Pages\\Movies\\Create.cshtml",
+      "TargetPath": "Pages\\Movies\\Create.cshtml",
       "FileKind": "mvc"
     },
     {

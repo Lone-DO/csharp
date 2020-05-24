@@ -162,3 +162,8 @@ C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\bin\Debug\netcoreapp3.1\ru
 C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\obj\Debug\netcoreapp3.1\Razor\Pages\Movies\Create.cshtml.g.cs
+C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\obj\Debug\netcoreapp3.1\Razor\Pages\Movies\Delete.cshtml.g.cs
+C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\obj\Debug\netcoreapp3.1\Razor\Pages\Movies\Details.cshtml.g.cs
+C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\obj\Debug\netcoreapp3.1\Razor\Pages\Movies\Edit.cshtml.g.cs
+C:\DevWorkshop\home\CodeLouisville\C#\RazorPagesMovie\obj\Debug\netcoreapp3.1\Razor\Pages\Movies\Index.cshtml.g.cs
