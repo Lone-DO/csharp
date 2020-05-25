@@ -19,7 +19,7 @@ namespace RedditViewer.Pages
 
         public void OnGet()
         {
-
+            
         }
     }
 }
