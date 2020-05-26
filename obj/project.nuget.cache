@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "BiM7UJ/wZRcyTDifkOjqt1wle90VJE2OKIVlbg+tyVOGKYnuPpcDbWdDBvrluFOIEM68R+mLYvSW/HCW2xcVEw==",
+  "dgSpecHash": "agZc2TSTWNHnXx93i6n4Oo16f2G+6GQPnF3JlRWkak8wwy1vLTPwi5zX0JRygiwW0LIvM1en/oPf5Wc83imoaw==",
   "success": true,
   "projectFilePath": "C:\\DevWorkshop\\home\\CodeLouisville\\C#\\C#.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lone Scholar\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Lone Scholar\\.nuget\\packages\\restsharp\\106.11.4\\restsharp.106.11.4.nupkg.sha512",
+    "C:\\Users\\Lone Scholar\\.nuget\\packages\\system.windows.forms\\4.0.0\\system.windows.forms.4.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

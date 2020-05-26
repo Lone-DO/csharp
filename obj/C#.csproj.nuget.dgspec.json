@@ -30,6 +30,9 @@
           }
         },
         "warningProperties": {
+          "noWarn": [
+            "NU1701"
+          ],
           "warnAsError": [
             "NU1605"
           ]
@@ -37,6 +40,20 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.11.4, )"
+            },
+            "newtonsoft.json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "system.windows.forms": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

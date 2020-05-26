@@ -5,4 +5,12 @@
     <RootNamespace>RedditViewer</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="newtonsoft.json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.4" />
+    <PackageReference Include="system.windows.forms" Version="4.0.0.0" />
+  </ItemGroup>
+<PropertyGroup>
+  <NoWarn>$(NoWarn);NU1701</NoWarn>
+</PropertyGroup>
 </Project>

@@ -1,0 +1,139 @@
+import React, { Component } from "react";
+
+import Rating from "./Rating";
+const moment = require("moment");
+class Viewer extends Component {
+   constructor() {
+      super();
+      this.state = {
+         after: "",
+         body: [],
+         data: [],
+         sort: "",
+         subreddit: "photoshopbattles",
+      };
+
+      this.setData = this.setData.bind(this);
+      this.setSort = this.setSort.bind(this);
+      this.setBody = this.setBody.bind(this);
+   }
+
+   async getPosts(sort = this.state.sort, after = this.state.after) {
+      console.clear();
+      const host = "https://www.reddit.com";
+      let { subreddit } = this.state;
+      let url = "";
+      console.log("Current Sort: " + this.state.sort + " Given Sort: " + sort);
+      console.log("Curent ID: " + this.state.after + " Given ID: " + after);
+
+      if (sort === "" && after === "") {
+         url = `${host}/r/${subreddit}.json`;
+      } else if (after === "" && sort !== "") {
+         url = `${host}/r/${subreddit}/${sort}.json`;
+      } else if (after !== "") {
+         url = `${host}/r/${subreddit}/${sort}.json?after=${after}`;
+      } else {
+         url = `${host}/r/${subreddit}.json`;
+      }
+
+      console.error(`Loading: ${url}`);
+
+      let res = await fetch(url);
+      let data = await res.json();
+
+      let last =
+         data.data.children[Object.keys(data.data.children).length - 1].data
+            .name;
+
+      let sameSort = this.state.sort === sort;
+      console.log("Same Sort: " + sameSort);
+
+      if (this.state.data.length > 0) {
+         let sameLastID =
+            this.state.data[this.state.data.length - 1].data.name === last;
+         if (!sameLastID && sameSort) {
+         }
+         console.log("Same Last ID: " + sameLastID);
+      }
+      try {
+         this.setData(data.data.children, last);
+         this.refinePosts();
+      } catch (err) {}
+   }
+
+   async refinePosts() {
+      let { data } = this.state;
+      let body = [];
+
+      for (let post in data) {
+         let {
+            author,
+            created_utc: created, // Post Date in POSIX, * 1000
+            id, // Post ID
+            permalink, //link to post
+            score, //Total between upvotes vs downvotes
+            url: src, //full res img
+            title,
+            thumbnail, //tiny res img
+         } = data[post].data;
+         created *= 1000;
+
+         if (thumbnail !== "self" && thumbnail !== "") {
+            body.push(
+               <section key={id} className="card">
+                  <p>{`Posted by u/${author}`}</p>
+                  <p>{moment(created).fromNow()}</p>
+                  <p>{`Article ID: ${id}`}</p>
+                  <p>{`Score: ${Rating(score)}`}</p>
+                  <p>{`Title: ${title}`}</p>
+                  <img className="preview" src={src} alt="title" />
+                  <hr></hr>
+               </section>
+            );
+         }
+      }
+      this.setBody(body);
+   }
+
+   setBody(content) {
+      this.setState(() => {
+         return { body: content };
+      });
+   }
+
+   setData(data, id) {
+      console.log(data);
+      this.setState((prevState) => {
+         return { data: data, after: id };
+      });
+   }
+
+   setSort(value) {
+      console.log("clicked " + value);
+      this.setState(() => {
+         return { sort: value, after: "" };
+      });
+      this.getPosts(value, "");
+   }
+
+   componentDidMount() {
+      this.getPosts();
+   }
+
+   render() {
+      return (
+         <main className="App-Posts">
+            <article>
+               <button onClick={() => this.setSort("hot")}>Hot</button>
+               <button onClick={() => this.setSort("new")}>New</button>
+               <button onClick={() => this.setSort("top")}>Top</button>
+               <button onClick={() => this.setSort("rising")}>Rising</button>
+            </article>
+            {this.state.body}
+            <button onClick={() => this.getPosts()}>Load More</button>
+         </main>
+      );
+   }
+}
+
+export default Viewer;
