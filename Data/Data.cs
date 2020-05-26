@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+// using RedditViewer.Controller;
 
 namespace RedditViewer
 {
@@ -27,84 +28,9 @@ namespace RedditViewer
         public static void Call()
         {
             // string _uri = "https://www.reddit.com/r/photoshopbattles/hot/.json";
-            Fetch();
+            Controller.Fetch();
             Console.WriteLine($"LastChild: {_after}");
         }
-        private static void Fetch()
-        {
-            /** BELOW IS A MODIFIED API GET METHOD SNIPPET*/
-            var webRequest = (HttpWebRequest)WebRequest.Create(_url);
-            webRequest.Method = "GET";  // <-- GET is the default method/verb, but it's here for clarity
-            var webResponse = (HttpWebResponse)webRequest.GetResponse();
-            var reader = new StreamReader(webResponse.GetResponseStream());
-            string s = reader.ReadToEnd();
-            var arr = JsonConvert.DeserializeObject<JObject>(s);
-            Response = arr;
-            /* END OF SNIPPET*/
 
-            Parse("articles");
-        }
-        private static void Parse(string Type)
-        {
-            var Articles = Response["data"]["children"];
-            int index = 0;
-
-            if (Type == "articles")
-            {
-                foreach (var data in Articles)
-                {
-                    // Console.WriteLine($"{index}, {data["data"]["title"]}");
-                    index += 1; // Incrementing children for length, to calculate last child
-                    var Title = data["data"]["title"];
-                    var Author = data["data"]["author"];
-                    var ID = data["data"]["id"];
-                    var Url = data["data"]["url"];
-                    var Link = data["data"]["permalink"];
-                    var Utc = data["data"]["created_utc"];
-                    var Thumbnail = data["data"]["title"];
-
-                    Console.WriteLine($"Title: {Title}");
-                    Console.WriteLine($"Author: {Author}");
-                    Console.WriteLine($"ID: {ID}");
-                    Console.WriteLine($"Url: {Url}");
-                    Console.WriteLine($"Link: {Link}");
-                    Console.WriteLine($"Utc: {Utc}");
-                    Console.WriteLine($"Thumbnail: {Thumbnail}");
-                }
-            }
-            else if (Type == "comments")
-            {
-                foreach (var data in Articles)
-                {
-                    Console.WriteLine($"{index}, {data["data"]["title"]}");
-                    index += 1; // Incrementing children for length, to calculate last child
-                    var Title = data["data"]["title"];
-                    var Author = data["data"]["author"];
-                    var ID = data["data"]["id"];
-                    var Url = data["data"]["url"];
-                    var Link = data["data"]["permalink"];
-                    var Utc = data["data"]["title"];
-                    var Thumbnail = data["data"]["title"];
-
-                    // Console.WriteLine($"Title: {Title}");
-                    // Console.WriteLine($"Author: {Author}");
-                    // Console.WriteLine($"ID: {ID}");
-                    // Console.WriteLine($"Url: {Url}");
-                    // Console.WriteLine($"Link: {Link}");
-                    // Console.WriteLine($"Utc: {Utc}");
-                    // Console.WriteLine($"Thumbnail: {Thumbnail}");
-                }
-            }
-
-            if (index > 0) Data.setAfter(Response["data"]["children"][index - 1]["data"]["id"].Value<string>());
-            Render();
-        }
-        private static void Render()
-        {
-
-            /*
-            
-            */
-        }
     }
 }
