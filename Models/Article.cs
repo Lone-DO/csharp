@@ -8,7 +8,7 @@ namespace RedditViewer
     {
         public static string Article(JToken data)
         {
-            string card;
+            string card = "";
             var Title = data["data"]["title"];
             var Author = data["data"]["author"];
             var ID = data["data"]["id"];
@@ -16,16 +16,28 @@ namespace RedditViewer
             var Link = data["data"]["permalink"];
             var Utc = data["data"]["created_utc"];
             var Thumbnail = data["data"]["title"];
+            var Score = data["data"]["score"];
+            var numComments = data["data"]["numComments"];
 
-            // Console.WriteLine($"Title: {Title}");
-            // Console.WriteLine($"Author: {Author}");
-            // Console.WriteLine($"ID: {ID}");
-            // Console.WriteLine($"Url: {Url}");
-            // Console.WriteLine($"Link: {Link}");
-            // Console.WriteLine($"Utc: {Utc}");
-            // Console.WriteLine($"Thumbnail: {Thumbnail}");
-
-            card = $"<img src={Url}>";
+            card += $"<article id=\"{ID}card\">";
+            card += $"<div id=\"Article-sidebar\" >";
+            card += $"<button class=\"votebutton\" id=\"upvote\">UP</button>";
+            card += $"<span id=\"Article.Score\">{Score}</span>";
+            card += $"<button class=\"votebutton\" id=\"downvote\">DOWN</button>";
+            card += $"</div>";
+            card += $"<div id=\"Article-content\">";
+            card += $"<div id=\"Article.information\">";
+            card += $"<i id=\"Article.Author\">Posted by {Author}</i>";
+            card += $"<i id=\"Article.Date\">{Utc} days ago</i>";
+            card += $"</div>";
+            card += $"<p id=\"Article.Title\">{Title}</p>";
+            card += $"<img src={Url}>";
+            card += $"<div id=\"Article-footer\">";
+            card += $"<span id=\"Article.numComments\">{numComments} Comments</span>";
+            card += $"<span>Share</span>";
+            card += $"</div>";
+            card += $"</div>";
+            card += $"</article>";
 
             // RENDER JSON INTO HTML SNIPPETS, 
 
