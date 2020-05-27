@@ -18,17 +18,17 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
 
 ## Order of Operations
 ### Pull Data From Reddit Api
-  - [ ] Create Method for handling calls
-    - [ ] Default method to GET Articles from initial Subreddit
+  - [x] Create Method for handling calls
+    - [x] Default method to GET Articles from initial Subreddit
       - [ ] Sort method to sort Articles based on user selection...
       > ["hot","new","rising","top"]
       - [ ] Load method to GET more Articles via last child's ID...
       ` data.data.children[Object.keys(data.data.children).length - 1].data.name; `
   - [ ] Create Method to GET Article Comments
 ### Render data from Api
-  - [ ] Create Model
-  - [ ] Loop Data and replicate Model
-    - [ ] Filter Data...
+  - [x] Create Model
+  - [x] Loop Data and replicate Model
+    - [x] Filter Data...
     ```
     for (let post in data) {
       let {
@@ -44,7 +44,7 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
         created *= 1000;
       }
     ```
-    - [ ] Call Model...
+    - [x] Call Model...
     ```
     if (thumbnail !== "self" && thumbnail !== "") {
       body.push(
@@ -60,8 +60,8 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
       );
     }
     ```
-    - [ ] Set generated HTML to body
-    - [ ] Render body to Razor/ View
+    - [x] Set generated HTML to body
+    - [x] Render body to Razor/ View
 ### Add Event handlers
   - [ ] Method/Button for Sorting
   - [ ] OnClick on Article
