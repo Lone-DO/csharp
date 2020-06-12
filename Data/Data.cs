@@ -14,6 +14,7 @@ namespace RedditViewer
         public static string _sort = "hot/";
         private static string _subReddit = $"r/photoshopbattles/{_sort}";
         public static string _after;
+
         public static string _url = $"https://www.reddit.com/{_subReddit}.json";
         // https://www.reddit.com/r/photoshopbattles/hot/.json
         public static JObject Response { get; set; }
@@ -29,6 +30,7 @@ namespace RedditViewer
         {
             // string _uri = "https://www.reddit.com/r/photoshopbattles/hot/.json";
             Controller.Fetch();
+
             Console.WriteLine($"LastChild: {_after}");
         }
 

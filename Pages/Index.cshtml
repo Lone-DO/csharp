@@ -6,26 +6,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Hello World</h1>
-
-    <article class="Article.ID card">
-        <div id="Article-sidebar">
-            <button class="votebutton" id="upvote">UP</button>
-            <span id="Article.Score"></span>
-            <button class="votebutton" id="downvote">DOWN</button>
-        </div>
-        <div id="Article-content">
-            <div id="Article.information">
-                <i id="Article.Author">Posted by @*Article.Author*@</i>
-                <i id="Article.Date">@*Article.Date*@ 2 days ago</i>
-            </div>
-            <p id="Article.Title">@*Article.Title*@</p>
-            <img src="Article.Url">
-            <div id="Article-footer">
-                <span id="Article.numComments">@*Article.numComments*@ Comments</span>
-                <span>Share</span>
-            </div>
-        </div>
-    </article>
-
     @Html.Raw(RedditViewer.Pages.IndexModel.Body);
+    <button onclick="data.fetch">Load More</button>
 </div>
