@@ -1,0 +1,29 @@
+﻿@page "/"
+
+@using RedditClientViewer.Data
+@inject WeatherForecastService ForecastService
+
+<h1>Reddit Client Viewer @Api.Channel</h1>
+<button @onclick="(() => Api.Update())"></button>
+
+@if (Api.Data == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>  
+ 
+       
+    </div>
+   
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
