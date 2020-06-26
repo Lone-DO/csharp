@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2Tk0iHb+5g/DxF7FMNFhbuD0nd7ChrIgqIeFK/lNQ23Sj+Gutw372o/SBT6JK6LDus7hdvb7+FzyYQTX0g5rDw==",
+  "dgSpecHash": "otlFPztNV4RWbo7u1EO2vTStWgjy51hK3WiMd36vyvO9RNmkPuGFTRez7WO5uNh3slBlEMH/ujZfldIr5z6Brw==",
   "success": true,
-  "projectFilePath": "C:\\DevWorkshop\\home\\CodeLouisville\\RedditClientViewer\\RedditClientViewer.csproj",
+  "projectFilePath": "C:\\Users\\offuttd\\Documents\\Source\\C#\\RedditClientViewer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Lone Scholar\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\offuttd\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

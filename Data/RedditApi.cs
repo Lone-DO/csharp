@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.IO;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using RedditClientViewer.Model;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace RedditClientViewer.Data
         private static string geoLocation;
         private static string channel = "";
         private static JObject data;
-        private static JObject comments;
+        //private static JObject comments;
         private static string after;
         private static string before;
         
@@ -28,7 +29,9 @@ namespace RedditClientViewer.Data
         public static string GeoLocation { get => geoLocation; set => geoLocation = value; }
         public static string Channel { get => channel; set => channel = value; }
         public static JObject Data { get => data; set => data = value; }
-        public static JObject Comments { get => comments; set => comments = value; }
+        //public static JObject Comments { get => comments; set => comments = value; }
+        public static RedditPost[] Posts;
+        public static RedditComment[] Comments;
         public static string After { get => after; set => after = value; }
         public static string Before { get => before; set => before = value; }
 
@@ -46,7 +49,7 @@ namespace RedditClientViewer.Data
 
     public static class Controller
     {
-        public static void fetch()
+        public static void fetch(string callType)
         {
             /** BELOW IS A MODIFIED API GET METHOD SNIPPET*/
             var webRequest = (HttpWebRequest)WebRequest.Create(Api.Url);
@@ -57,22 +60,22 @@ namespace RedditClientViewer.Data
             var arr = JsonConvert.DeserializeObject<JObject>(s);
             Api.Data = arr;
             /* END OF SNIPPET*/
-
-            
-
+            // if (callType.ToLower() == "posts") GetPostsAsync();
         }
 
-        /**
-           public Task<RedditPost[]> GetPostsAsync()
-        {
-            return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = startDate.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            }).ToArray());
-        }
-             */
+        
+        //    public static Task<RedditPost[]> GetPostsAsync()
+        // {
+        //     Task task;
+        //     return task;
+        //     // return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        //     // {
+        //     //     Date = startDate.AddDays(index),
+        //     //     TemperatureC = rng.Next(-20, 55),
+        //     //     Summary = Summaries[rng.Next(Summaries.Length)]
+        //     // }).ToArray());
+        // }
+        
 
     }
 }
