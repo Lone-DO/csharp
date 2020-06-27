@@ -7,40 +7,70 @@ using RedditClientViewer.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RedditClientViewer.Data
 {
     public static class Api
     {
-        private static string sort = "hot/";
+        private static string sort;
         private static string time;
         private static string url;
         private static string geoLocation;
-        private static string channel = "";
+        private static string channel = "popular";
         private static JObject data;
-        //private static JObject comments;
         private static string after;
         private static string before;
-        
 
-        public static string Sort { get => sort; set => sort = value; }
-        public static string Time { get => time; set => time = value; }
-        public static string Url { get => url; set => url = value; }
-        public static string GeoLocation { get => geoLocation; set => geoLocation = value; }
-        public static string Channel { get => channel; set => channel = value; }
-        public static JObject Data { get => data; set => data = value; }
-        //public static JObject Comments { get => comments; set => comments = value; }
         public static RedditPost[] Posts;
         public static RedditComment[] Comments;
-        public static string After { get => after; set => after = value; }
-        public static string Before { get => before; set => before = value; }
+        public static JObject Data { get => data; set => data = value; }
 
-        private static string[] Options = { After, Before, Time, GeoLocation };
-
+        public static string Url { get => url; set => url = $"{value}"; }
+        public static string Sort { get => sort; set => sort = $"sort={value}"; }
+        public static string Time { get => time; set => time = $"t={value}"; }
+        public static string After { 
+            get => after; 
+            set {
+                if (String.IsNullOrEmpty(value)) 
+                {
+                    after = "";
+                }
+                else 
+                {
+                    after = $"after={value}";
+                    Before = "";
+                }
+            } 
+        }
+        public static string Before { 
+            get => before; 
+            set {
+                if (String.IsNullOrEmpty(value)) 
+                {
+                    before = "";
+                }
+                else 
+                {
+                    before = $"after={value}";
+                    After = "";
+                }
+            } 
+        }
+        public static string Channel { get => channel; set => channel = $"{value}"; }
+        public static string GeoLocation { get => geoLocation; set => geoLocation = $"geo_filter={value}"; }
+        
         public static string Update()
         {
+            string[] arr = {After, Before, GeoLocation, Time};
+            var Options = "";
+
+            foreach (var option in arr){
+                if (!String.IsNullOrEmpty(option)) Options += $"?{option}";
+            }
+
             string DOMAIN = "https://www.reddit.com/";
-            Channel += "Hello ";
             //{self._default}{self._channel}{self.Sort}.json{self.Options['call']}
             Url = $@"{DOMAIN}{Channel}{Sort}.json{Options}";
             return DOMAIN;

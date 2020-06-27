@@ -4,7 +4,27 @@
 @inject WeatherForecastService ForecastService
 
 <h1>Reddit Client Viewer @Api.Channel</h1>
-<button @onclick="(() => Api.Update())"></button>
+<div>
+    <button>Hot</button>
+    <button>New</button>
+    <button>Top</button>
+    <button>Rising</button>
+</div>
+<select @bind="Api.Time">
+    <option value="hour">Now</option>
+    <option value="day">Today</option>
+    <option value="week">This Week</option>
+    <option value="month">This Month</option>
+    <option value="year">This Year</option>
+    <option value="all">All Time</option>
+</select>
+
+<p>Url @Api.Url</p>
+<p>Url @Api.Url</p>
+<p>Url @Api.Url</p>
+<p>Url @Api.Url</p>
+
+<button @onclick="(() => Api.Update())">Search</button>
 
 @if (Api.Data == null)
 {
@@ -13,13 +33,14 @@
 else
 {
     <div>  
- 
        
     </div>
    
 }
 
 @code {
+
+
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
