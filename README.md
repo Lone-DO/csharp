@@ -2,6 +2,16 @@
 
 Code Louisville, C# 2020 Project
 
+# How to use
+ - Clone project
+ - Be sure to install any missing dependencies
+ - In the Console, run
+ ```
+   dotnet run
+ ```
+ - In the Browser, head to https://localhost:5001/
+ - This is a Blazor/ Razor Pages Web Application, Enjoy
+ 
 ## Create Reddit Client App - Browse PhotoshopBattles Subreddit
 
 Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierarchy
@@ -26,9 +36,9 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
 
 -  [x] Create Method for handling calls
    -  [x] Default method to GET Articles from initial Subreddit
-      -  [ ] Sort method to sort Articles based on user selection...
+      -  [x] Sort method to sort Articles based on user selection...
          > ["hot","new","rising","top"]
-      -  [ ] Load method to GET more Articles via last child's ID...
+      -  [x] Load method to GET more Articles via last child's ID...
              `data.data.children[Object.keys(data.data.children).length - 1].data.name;`
 -  [ ] Create Method to GET Article Comments
 
@@ -73,7 +83,7 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
 
 ### Add Event handlers
 
--  [ ] Method/Button for Sorting
+-  [x] Method/Button for Sorting
 -  [ ] OnClick on Article
    -  [ ] Call Load Method for Article Content/Comments
       -  [ ] Render only images
