@@ -18,18 +18,22 @@ namespace RedditClientViewer.Data
         private static string time;
         private static string url;
         private static string geoLocation;
-        private static string channel = "popular";
+        private static string channel = "r/popular";
         private static JObject data;
         private static string after;
         private static string before;
 
-        public static RedditPost[] Posts;
+        public static List<RedditPost> Posts = new List<RedditPost>();
         public static RedditComment[] Comments;
         public static JObject Data { get => data; set => data = value; }
 
         public static string Url { get => url; set => url = $"{value}"; }
-        public static string Sort { get => sort; set => sort = $"sort={value}"; }
+        public static string Sort { get => sort; set => sort = $"/{value}"; }
         public static string Time { get => time; set => time = $"t={value}"; }
+        public static void SetSort(string value)
+        {
+            Sort = value;
+        }
         public static string After { 
             get => after; 
             set {
@@ -53,28 +57,28 @@ namespace RedditClientViewer.Data
                 }
                 else 
                 {
-                    before = $"after={value}";
+                    before = $"before={value}";
                     After = "";
                 }
             } 
         }
-        public static string Channel { get => channel; set => channel = $"{value}"; }
+        public static string Channel { get => channel; set => channel = $"r/{value}"; }
         public static string GeoLocation { get => geoLocation; set => geoLocation = $"geo_filter={value}"; }
         
-        public static string Update()
+        public static void Update()
         {
             string[] arr = {After, Before, GeoLocation, Time};
+            string DOMAIN = "https://www.reddit.com/";
             var Options = "";
-
             foreach (var option in arr){
                 if (!String.IsNullOrEmpty(option)) Options += $"?{option}";
             }
-
-            string DOMAIN = "https://www.reddit.com/";
-            //{self._default}{self._channel}{self.Sort}.json{self.Options['call']}
+            
             Url = $@"{DOMAIN}{Channel}{Sort}.json{Options}";
-            return DOMAIN;
+            Controller.fetch("posts");
         }
+
+       
     }
 
     public static class Controller
@@ -90,22 +94,37 @@ namespace RedditClientViewer.Data
             var arr = JsonConvert.DeserializeObject<JObject>(s);
             Api.Data = arr;
             /* END OF SNIPPET*/
-            // if (callType.ToLower() == "posts") GetPostsAsync();
+            if (callType.ToLower() == "posts") GetPostsAsync();
+        }
+         public static void LoadMore()
+        {
+            Api.After = (string)Api.Data["data"]["children"].Last["data"]["name"];
+            Api.Update();
         }
 
         
-        //    public static Task<RedditPost[]> GetPostsAsync()
-        // {
-        //     Task task;
-        //     return task;
-        //     // return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //     // {
-        //     //     Date = startDate.AddDays(index),
-        //     //     TemperatureC = rng.Next(-20, 55),
-        //     //     Summary = Summaries[rng.Next(Summaries.Length)]
-        //     // }).ToArray());
-        // }
-        
+           public static void GetPostsAsync()
+        {
 
+            foreach (var child in Api.Data["data"]["children"])
+            {
+                var data = child["data"];
+                var post = new RedditPost{
+                    Author = (string)data["name"],
+                    Domain  = (string)data["domain"],
+                    Title = (string)data["title"],
+                    ID = (string)data["id"],
+                    Url = (string)data["url"],
+                    Link = (string)data["link"],
+                    Utc = (string)data["utc"],
+                    Thumbnail = (string)data["thumbnail"],
+                    Score = (int)data["score"],
+                    NumComments = (int)data["num_comments"],
+                };
+                Console.WriteLine(post);
+                Api.Posts.Add(post);
+            }
+            Console.WriteLine(Api.Posts.Count);
+        }
     }
 }

@@ -5,14 +5,14 @@
 
 <h1>Reddit Client Viewer @Api.Channel</h1>
 <div>
-    <button>Hot</button>
-    <button>New</button>
-    <button>Top</button>
-    <button>Rising</button>
+    <button @onclick="@(e => Api.Sort = "hot")">Hot</button>
+    <button @onclick="@(e => Api.Sort = "new")">New</button>
+    <button @onclick="@(e => Api.Sort = "top")">Top</button>
+    <button @onclick="@(e => Api.Sort = "rising")">Rising</button>
 </div>
 <select @bind="Api.Time">
     <option value="hour">Now</option>
-    <option value="day">Today</option>
+    <option value="day" selected>Today</option>
     <option value="week">This Week</option>
     <option value="month">This Month</option>
     <option value="year">This Year</option>
@@ -20,9 +20,13 @@
 </select>
 
 <p>Url @Api.Url</p>
-<p>Url @Api.Url</p>
-<p>Url @Api.Url</p>
-<p>Url @Api.Url</p>
+<p>After @Api.After</p>
+<p>Before @Api.Before</p>
+<p>Time @Api.Time</p>
+<p>Sort @Api.Sort</p>
+<p>Channel @Api.Channel</p>
+@* <p>Current amount of Posts Loaded @Api.Posts</p> *@
+
 
 <button @onclick="(() => Api.Update())">Search</button>
 
@@ -32,10 +36,16 @@
 }
 else
 {
-    <div>  
-       
-    </div>
-   
+    <div>
+       <button @onclick="(() => Controller.LoadMore())">Load More</button>
+       <button @onclick="(() => Controller.GetPostsAsync())">Render Posts</button>
+        @* @if (Api.Posts.Count)
+        {
+
+        } *@
+    </div>  
+
+
 }
 
 @code {
