@@ -1,15 +1,17 @@
 ﻿@page "/"
 
 @using RedditClientViewer.Data
-@inject WeatherForecastService ForecastService
 
-<h1>Reddit Client Viewer @Api.Channel</h1>
+<h1>Reddit Client Viewer</h1>
 <div>
-    <button @onclick="@(e => Api.Sort = "hot")">Hot</button>
-    <button @onclick="@(e => Api.Sort = "new")">New</button>
-    <button @onclick="@(e => Api.Sort = "top")">Top</button>
-    <button @onclick="@(e => Api.Sort = "rising")">Rising</button>
+    <p>Sort @Api.Sort</p>
+    <button @onclick="@(() => Api.Sort = "hot")">Hot</button>
+    <button @onclick="@(() => Api.Sort = "new")">New</button>
+    <button @onclick="@(()=> Api.Sort = "top")">Top</button>
+    <button @onclick="@(() => Api.Sort = "rising")">Rising</button>
 </div>
+
+<p>Time @Api.Time</p>
 <select @bind="Api.Time">
     <option value="hour">Now</option>
     <option value="day" selected>Today</option>
@@ -21,12 +23,8 @@
 
 <p>Url @Api.Url</p>
 <p>After @Api.After</p>
-<p>Before @Api.Before</p>
-<p>Time @Api.Time</p>
-<p>Sort @Api.Sort</p>
 <p>Channel @Api.Channel</p>
-@* <p>Current amount of Posts Loaded @Api.Posts</p> *@
-
+<p>Current amount of Posts Loaded @Api.Posts.Count</p>
 
 <button @onclick="(() => Api.Update())">Search</button>
 
@@ -39,22 +37,30 @@ else
     <div>
        <button @onclick="(() => Controller.LoadMore())">Load More</button>
        <button @onclick="(() => Controller.GetPostsAsync())">Render Posts</button>
-        @* @if (Api.Posts.Count)
+        @if (Api.Posts.Count > 1)
         {
-
-        } *@
+            @foreach (var post in Api.Posts)
+            {
+                <article id='{@post.ID} card'>
+                    <div id='Article-sidebar'>
+                        <button class='votebutton' id='upvote'>UP</button>
+                        <span id='Article.Score'>@post.Score</span>
+                        <button class='votebutton' id='downvote'>DOWN</button>
+                    </div>
+                    <div id='Article-content'>
+                        <div id='Article.information'>
+                            <i id='Article.Author'>Posted by @post.Author</i>
+                            @* <i id='Article.Date'>@Controller.Timeago(post.Utc) days ago</i> *@
+                        </div>
+                        <p id='Article.Title'>@post.Title</p>
+                        <img src=@post.Url>
+                        <div id='Article-footer'>
+                            <span id='Article.numComments'>@post.NumComments Comments</span>
+                            <a href="@post.Link"><button>View On Reddit</button></a>
+                        </div>
+                    </div>
+                </article>
+            }
+        }
     </div>  
-
-
-}
-
-@code {
-
-
-    private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
 }

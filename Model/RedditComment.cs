@@ -1,5 +1,3 @@
-using System;
-
 namespace RedditClientViewer.Model
 {
     public class RedditComment
