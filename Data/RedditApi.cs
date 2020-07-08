@@ -60,8 +60,12 @@ namespace RedditClientViewer.Data
             }
         }
 
-        public static void Update()
+        public static void Update(string arg = "")
         {
+            if (arg == "reset")
+            {
+                Controller.Reset();
+            }
             string[] arr = { After, Before, GeoLocation, Time };
             var Options = "";
             foreach (var option in arr)

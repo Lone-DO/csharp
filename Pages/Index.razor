@@ -26,7 +26,7 @@
 <p>Channel @Api.Channel</p>
 <p>Current amount of Posts Loaded @Api.Posts.Count</p>
 
-<button @onclick="(() => Api.Update())">Search</button>
+<button @onclick="@(() => Api.Update("reset"))">Search</button>
 
 @if (Api.Data == null)
 {
@@ -36,7 +36,6 @@ else
 {
     <div>
        <button @onclick="(() => Controller.LoadMore())">Load More</button>
-       <button @onclick="(() => Controller.GetPostsAsync())">Render Posts</button>
         @if (Api.Posts.Count > 1)
         {
             @foreach (var post in Api.Posts)

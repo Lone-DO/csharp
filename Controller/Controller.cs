@@ -9,8 +9,10 @@ namespace RedditClientViewer.Data
 {
     public static class Controller
     {
-        public static void fetch(string callType)
+        public static void fetch(params Object[] args)
         {
+            string callType = (string)args[0];
+
             /** BELOW IS A MODIFIED API GET METHOD SNIPPET*/
             var webRequest = (HttpWebRequest)WebRequest.Create(Api.Url);
             webRequest.Method = "GET";
@@ -21,7 +23,6 @@ namespace RedditClientViewer.Data
             Api.Data = arr;
             /* END OF SNIPPET*/
             if (callType.ToLower() == "posts") GetPostsAsync();
-            if (callType.ToLower() == "reset") GetPostsAsync("reset");
         }
         public static void LoadMore()
         {
@@ -30,12 +31,8 @@ namespace RedditClientViewer.Data
         }
 
 
-        public static void GetPostsAsync(string arg = "")
+        public static void GetPostsAsync()
         {
-            if (arg == "reset")
-            {
-                Api.Posts.Clear();
-            }
             foreach (var child in Api.Data["data"]["children"])
             {
                 var data = child["data"];
@@ -58,6 +55,13 @@ namespace RedditClientViewer.Data
             }
         }
 
+        public static void Reset()
+        {
+            Api.Posts.Clear();
+            Api.Before = "";
+            Api.After = "";
+
+        }
         public static string Timeago(string utc)
         {
             return utc;
