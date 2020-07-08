@@ -21,6 +21,7 @@ namespace RedditClientViewer.Data
             Api.Data = arr;
             /* END OF SNIPPET*/
             if (callType.ToLower() == "posts") GetPostsAsync();
+            if (callType.ToLower() == "reset") GetPostsAsync("reset");
         }
         public static void LoadMore()
         {
@@ -29,25 +30,31 @@ namespace RedditClientViewer.Data
         }
 
 
-        public static void GetPostsAsync()
+        public static void GetPostsAsync(string arg = "")
         {
+            if (arg == "reset")
+            {
+                Api.Posts.Clear();
+            }
             foreach (var child in Api.Data["data"]["children"])
             {
                 var data = child["data"];
+
                 var post = new RedditPost
                 {
-                    Author = (string)data["name"],
+                    Author = (string)data["author"],
                     Domain = (string)data["domain"],
-                    Title = (string)data["title"],
                     ID = (string)data["id"],
-                    Url = (string)data["url"],
                     Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
-                    Utc = (string)data["utc"],
-                    Thumbnail = (string)data["thumbnail"],
-                    Score = (int)data["score"],
+                    Name = (string)data["name"],
                     NumComments = (int)data["num_comments"],
+                    Score = (int)data["score"],
+                    Thumbnail = (string)data["thumbnail"],
+                    Title = (string)data["title"],
+                    Url = (string)data["url"],
+                    Utc = (string)data["utc"],
                 };
-                Api.Posts.Add(post);
+                if (post.Author != "PhotoShopBattles") Api.Posts.Add(post);
             }
         }
 
