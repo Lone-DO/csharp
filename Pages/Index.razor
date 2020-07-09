@@ -56,6 +56,7 @@ else
                         <div id='Article-footer'>
                             <span id='Article.numComments'>@post.NumComments Comments</span>
                             <a href="@post.Link"><button>View On Reddit</button></a>
+                            <button @onclick="@(() => Controller.fetch("comments", @post.Link))">View Submissions</button>
                         </div>
                     </div>
                 </article>

@@ -15,14 +15,23 @@ namespace RedditClientViewer.Data
 
             /** BELOW IS A MODIFIED API GET METHOD SNIPPET*/
             var webRequest = (HttpWebRequest)WebRequest.Create(Api.Url);
+            if (callType == "comments")
+            {
+                Console.WriteLine($"{(string)args[1]}.json");
+                webRequest = (HttpWebRequest)WebRequest.Create($"{(string)args[1]}.json");
+            }
             webRequest.Method = "GET";
             var webResponse = (HttpWebResponse)webRequest.GetResponse();
             var reader = new StreamReader(webResponse.GetResponseStream());
             string s = reader.ReadToEnd();
-            var arr = JsonConvert.DeserializeObject<JObject>(s);
-            Api.Data = arr;
+
+            var obj = JsonConvert.DeserializeObject<JObject>(s);
+            var arr = JsonConvert.DeserializeObject<JArray>(s);
+
+            Api.Data = obj;
             /* END OF SNIPPET*/
             if (callType.ToLower() == "posts") GetPostsAsync();
+            if (callType.ToLower() == "comments") GetCommentsAsync();
         }
         public static void LoadMore()
         {
@@ -53,6 +62,34 @@ namespace RedditClientViewer.Data
                 };
                 if (post.Author != "PhotoShopBattles") Api.Posts.Add(post);
             }
+        }
+
+        public static void GetCommentsAsync()
+        {
+            Console.WriteLine(Api.Data);
+            // foreach (var child in Api.Data["data"]["children"])
+            // {
+            //     var data = child["data"];
+            //     Console.WriteLine(data);
+            // var comment = new RedditComment
+            // {
+            //     Author = (string)data["author"],
+            //     Body = (string)data["body"],
+            //     Domain = (string)data["domain"],
+            //     ID = (string)data["id"],
+            //     Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
+            //     Name = (string)data["name"],
+            //     NumComments = (int)data["num_comments"],
+            //     Score = (int)data["score"],
+            //     Thumbnail = (string)data["thumbnail"],
+            //     Title = (string)data["title"],
+            //     Url = (string)data["url"],
+            //     Utc = (string)data["utc"],
+            // };
+
+
+            // if (comment.Author != "PhotoShopBattles") Api.Comments.Add(comment);
+            // }
         }
 
         public static void Reset()
