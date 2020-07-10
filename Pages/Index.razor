@@ -61,9 +61,13 @@ else
                     </div>
                     @if (post.Comments.Count >= 1)
                     {
-                        <div class="Article-Comments">
-                            <p>Comments...</p>
-                        </div>
+                        @foreach (var comment in post.Comments)
+                        {
+                            <div class="Article-Comments">
+                                <a href="@comment.Src" target= "_blank"><p>@comment.Body</p></a>
+                            </div>
+                        }
+                        
                     }
                 </article>
             }
