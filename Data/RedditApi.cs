@@ -75,7 +75,7 @@ namespace RedditClientViewer.Data
                 if (!String.IsNullOrEmpty(option)) Options += $"?{option}";
             }
             Url = $@"{DOMAIN}/{Channel}{Sort}.json{Options}";
-            Controller.fetch("posts", null);
+            Controller.fetch("posts");
         }
     }
 }
