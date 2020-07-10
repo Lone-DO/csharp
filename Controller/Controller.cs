@@ -9,29 +9,34 @@ namespace RedditClientViewer.Data
 {
     public static class Controller
     {
-        public static void fetch(params Object[] args)
+        public static string Request(string req)
         {
-            string callType = (string)args[0];
-
-            /** BELOW IS A MODIFIED API GET METHOD SNIPPET*/
-            var webRequest = (HttpWebRequest)WebRequest.Create(Api.Url);
-            if (callType == "comments")
-            {
-                Console.WriteLine($"{(string)args[1]}.json");
-                webRequest = (HttpWebRequest)WebRequest.Create($"{(string)args[1]}.json");
-            }
+            var webRequest = (HttpWebRequest)WebRequest.Create(req);
             webRequest.Method = "GET";
             var webResponse = (HttpWebResponse)webRequest.GetResponse();
             var reader = new StreamReader(webResponse.GetResponseStream());
-            string s = reader.ReadToEnd();
+            return reader.ReadToEnd();
+        }
+        public static void fetch(string callType, RedditPost post, string url = "")
+        {
 
-            var obj = JsonConvert.DeserializeObject<JObject>(s);
-            var arr = JsonConvert.DeserializeObject<JArray>(s);
-
-            Api.Data = obj;
-            /* END OF SNIPPET*/
-            if (callType.ToLower() == "posts") GetPostsAsync();
-            if (callType.ToLower() == "comments") GetCommentsAsync();
+            if (callType == "comments")
+            {
+                var postLink = $"{(string)url}.json";
+                Console.WriteLine(Api.Posts.IndexOf(post));
+                Console.WriteLine(postLink);
+                string req = Request(postLink);
+                var arr = JsonConvert.DeserializeObject<JArray>(req);
+                Api.CommentData = arr;
+                GetCommentsAsync();
+            }
+            else
+            {
+                string req = Request(Api.Url);
+                var obj = JsonConvert.DeserializeObject<JObject>(req);
+                Api.Data = obj;
+                GetPostsAsync();
+            }
         }
         public static void LoadMore()
         {
@@ -45,7 +50,6 @@ namespace RedditClientViewer.Data
             foreach (var child in Api.Data["data"]["children"])
             {
                 var data = child["data"];
-
                 var post = new RedditPost
                 {
                     Author = (string)data["author"],
@@ -62,34 +66,25 @@ namespace RedditClientViewer.Data
                 };
                 if (post.Author != "PhotoShopBattles") Api.Posts.Add(post);
             }
+            Console.WriteLine(Api.Posts[1]);
         }
 
         public static void GetCommentsAsync()
         {
-            Console.WriteLine(Api.Data);
-            // foreach (var child in Api.Data["data"]["children"])
-            // {
-            //     var data = child["data"];
-            //     Console.WriteLine(data);
-            // var comment = new RedditComment
-            // {
-            //     Author = (string)data["author"],
-            //     Body = (string)data["body"],
-            //     Domain = (string)data["domain"],
-            //     ID = (string)data["id"],
-            //     Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
-            //     Name = (string)data["name"],
-            //     NumComments = (int)data["num_comments"],
-            //     Score = (int)data["score"],
-            //     Thumbnail = (string)data["thumbnail"],
-            //     Title = (string)data["title"],
-            //     Url = (string)data["url"],
-            //     Utc = (string)data["utc"],
-            // };
-
-
-            // if (comment.Author != "PhotoShopBattles") Api.Comments.Add(comment);
-            // }
+            foreach (var child in Api.CommentData[1]["data"]["children"])
+            {
+                var data = child["data"];
+                var comment = new RedditComment
+                {
+                    Author = (string)data["author"],
+                    Score = (int)data["score"],
+                    Utc = (string)data["utc"],
+                    Body = (string)data["body"],
+                    Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
+                    NumReplies = (int)data["num_comments"],
+                };
+                Api.Comments.Add(comment);
+            }
         }
 
         public static void Reset()

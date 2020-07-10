@@ -13,13 +13,15 @@ namespace RedditClientViewer.Data
         private static string geoLocation;
         private static string channel = "r/photoshopbattles";
         private static JObject data;
+        private static JArray commentData;
         private static string after;
         private static string before;
 
         public static List<RedditPost> Posts = new List<RedditPost>();
-        public static RedditComment[] Comments;
+        public static List<RedditComment> Comments = new List<RedditComment>();
         public static string DOMAIN = "https://www.reddit.com";
         public static JObject Data { get => data; set => data = value; }
+        public static JArray CommentData { get => commentData; set => commentData = value; }
 
         public static string Url { get => url; set => url = $"{value}"; }
         public static string Sort { get => sort; set => sort = $"/{value}"; }
@@ -73,7 +75,7 @@ namespace RedditClientViewer.Data
                 if (!String.IsNullOrEmpty(option)) Options += $"?{option}";
             }
             Url = $@"{DOMAIN}/{Channel}{Sort}.json{Options}";
-            Controller.fetch("posts");
+            Controller.fetch("posts", null);
         }
     }
 }

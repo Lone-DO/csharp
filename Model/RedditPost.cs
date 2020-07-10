@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RedditClientViewer.Model
 {
     public class RedditPost
@@ -14,5 +16,6 @@ namespace RedditClientViewer.Model
         public int Score { get; set; }
         public int NumComments { get; set; }
         public string Domain { get; set; }
+        public List<RedditComment> Comments = new List<RedditComment>();
     }
 }

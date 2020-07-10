@@ -56,9 +56,15 @@ else
                         <div id='Article-footer'>
                             <span id='Article.numComments'>@post.NumComments Comments</span>
                             <a href="@post.Link"><button>View On Reddit</button></a>
-                            <button @onclick="@(() => Controller.fetch("comments", @post.Link))">View Submissions</button>
+                            <button @onclick="@(() => Controller.fetch("comments", @post, @post.Link))">View Submissions</button>
                         </div>
                     </div>
+                    @if (post.Comments.Count >= 1)
+                    {
+                        <div class="Article-Comments">
+                            <p>Comments...</p>
+                        </div>
+                    }
                 </article>
             }
         }
