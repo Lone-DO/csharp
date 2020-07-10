@@ -4,6 +4,7 @@ using System.IO;
 using RedditClientViewer.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace RedditClientViewer.Data
 {
@@ -17,26 +18,20 @@ namespace RedditClientViewer.Data
             var reader = new StreamReader(webResponse.GetResponseStream());
             return reader.ReadToEnd();
         }
-        public static void fetch(string callType, RedditPost post, string url = "")
+        public static void fetch(string callType, RedditPost post, string url)
         {
-
-            if (callType == "comments")
-            {
-                var postLink = $"{(string)url}.json";
-                Console.WriteLine(Api.Posts.IndexOf(post));
-                Console.WriteLine(postLink);
-                string req = Request(postLink);
-                var arr = JsonConvert.DeserializeObject<JArray>(req);
-                Api.CommentData = arr;
-                GetCommentsAsync();
-            }
-            else
-            {
-                string req = Request(Api.Url);
-                var obj = JsonConvert.DeserializeObject<JObject>(req);
-                Api.Data = obj;
-                GetPostsAsync();
-            }
+            var postLink = $"{(string)url}.json";
+            string req = Request(postLink);
+            var arr = JsonConvert.DeserializeObject<JArray>(req);
+            Api.CommentData = arr;
+            GetCommentsAsync(post);
+        }
+        public static void fetch(string callType)
+        {
+            string req = Request(Api.Url);
+            var obj = JsonConvert.DeserializeObject<JObject>(req);
+            Api.Data = obj;
+            GetPostsAsync();
         }
         public static void LoadMore()
         {
@@ -66,24 +61,30 @@ namespace RedditClientViewer.Data
                 };
                 if (post.Author != "PhotoShopBattles") Api.Posts.Add(post);
             }
-            Console.WriteLine(Api.Posts[1]);
         }
 
-        public static void GetCommentsAsync()
+        public static void GetCommentsAsync(RedditPost post)
         {
+            int index = Api.Posts.IndexOf(post);
+            RedditPost Post = Api.Posts[index];
             foreach (var child in Api.CommentData[1]["data"]["children"])
             {
                 var data = child["data"];
-                var comment = new RedditComment
+                string pattern = @"ht(\w)+:\/\/(\w)+.(\w)+(\/)?(\w)+.(\w)+(\/?)(\w?)+(\.?)(\w?)+";
+                if ((string)data["author"] != "[deleted]")
                 {
-                    Author = (string)data["author"],
-                    Score = (int)data["score"],
-                    Utc = (string)data["utc"],
-                    Body = (string)data["body"],
-                    Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
-                    NumReplies = (int)data["num_comments"],
-                };
-                Api.Comments.Add(comment);
+                    var comment = new RedditComment
+                    {
+                        Author = (string)data["author"],
+                        Score = (int)data["score"],
+                        Utc = (string)data["utc"],
+                        Body = (string)data["body"],
+                        Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
+                        Src = Regex.Match((string)data["body"], pattern),
+                        Replies = data["replies"],
+                    };
+                    Api.Posts[index].Comments.Add(comment);
+                }
             }
         }
 
