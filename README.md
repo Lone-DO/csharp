@@ -10,7 +10,9 @@ Code Louisville, C# 2020 Project
    dotnet run
  ```
  - In the Browser, head to https://localhost:5001/
- - This is a Blazor/ Razor Pages Web Application, Enjoy
+ - This is a Blazor/ Razor Pages Web Application, After adjusting the options, click the "Search" button
+ - If a Post has submissions, they will be rendered once you click the "View Submissions" button
+ - Enjoy!
  
 ## Create Reddit Client App - Browse PhotoshopBattles Subreddit
 
