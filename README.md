@@ -20,15 +20,28 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
 
 -  Create another class which inherits one or more properties from its parent
 -  Create a class, then create at least one object of that class and populate it with data
-   > Card Model for rendering Data
+   > Controller/Controller.cs
 -  Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program
+   > RedditComment.cs
+   > RedditPost.cs
+   > RedditApi.cs
+-  Create a call at least 3 functions or methods, at least one of which must return a value that is used in your application
 -  Connect to an external/3rd party API and read data into your app
+   > Reddit Api
+   > (OPTIONAL) Imgure API
 -  Read data from an external file, such as text, JSON, CSV, etc and use that data in your application
-   > Using API data, Using user settings for sorting
+   > Using API data, 
 -  Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event)
-   > Will have to convert API.Date to utc; Say how long since posted (EX. 10 days ago)
+   > Will have to convert Post.UTC to time since posted...; (EX. 10 days ago)
 -  Visualize data in a graph, chart, or other visual representation of data
-   > CSharp WebApp
+   > Blazor Application
+
+## These are the primary files of this application
+-  /Controller
+-  /Data
+-  /Model
+-  /Pages/Index.razor
+-  /wwwroot/css/
 
 ## Order of Operations
 
@@ -89,7 +102,8 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
       -  [x] Render only images
       -  [ ] \(OPTIONAL) Toggle button for showing all comments
    -  [x] View Content
-      -  [ ] Render in Modal
+      -  [x] Render in post
+      -  [ ] \(OPTIONAL) Render in Modal
       -  [ ] \(OPTIONAL) Redirect URL with Article ID as Query
 -  [x] Method to return to last search
 
