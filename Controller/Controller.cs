@@ -70,7 +70,11 @@ namespace RedditClientViewer.Data
             foreach (var child in Api.CommentData[1]["data"]["children"])
             {
                 var data = child["data"];
-                string pattern = @"ht(\w)+:\/\/(\w)+.(\w)+(\/)?(\w)+.(\w)+(\/?)(\w?)+(\.?)(\w?)+";
+                RegexOptions OPTIONS = RegexOptions.Multiline | RegexOptions.IgnoreCase;
+                string URL_REGEX = @"ht(\w)+:\/\/(\w)+.(\w)+(\/)?(\w)+.(\w)+(\/?)(\w?)+(\.?)(\w?)+";
+                // Created and tested @ https://regex101.com/r/MiGGnF/3
+                string TITLE_REGEX = @"\[(.+)]";
+                /// Created and tested @ https://regex101.com/r/MiGGnF/4
                 if ((string)data["author"] != "[deleted]")
                 {
                     var comment = new RedditComment
@@ -80,8 +84,9 @@ namespace RedditClientViewer.Data
                         Utc = (string)data["utc"],
                         Body = (string)data["body"],
                         Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
-                        Src = Regex.Match((string)data["body"], pattern),
-                        Replies = data["replies"],
+                        Src = Regex.Match((string)data["body"], URL_REGEX, OPTIONS),
+                        Title = Regex.Match((string)data["body"], TITLE_REGEX, OPTIONS),
+                        // Replies = data["replies"],
                     };
                     Api.Posts[index].Comments.Add(comment);
                 }
