@@ -40,21 +40,21 @@ else
         {
             @foreach (var post in Api.Posts)
             {
-                <article id='{@post.ID} card'>
-                    <div id='Article-sidebar'>
-                        <button class='votebutton' id='upvote'>UP</button>
-                        <span id='Article.Score'>@post.Score</span>
-                        <button class='votebutton' id='downvote'>DOWN</button>
+                <article class='{@post.ID} card'>
+                    <div class='Article-sidebar'>
+                        <button class='votebutton upvote'>UP</button>
+                        <span class='Article.Score'>@post.Score</span>
+                        <button class='votebutton downvote'>DOWN</button>
                     </div>
-                    <div id='Article-content'>
-                        <div id='Article.information'>
-                            <i id='Article.Author'>Posted by @post.Author</i>
-                            @* <i id='Article.Date'>@Controller.Timeago(post.Utc) days ago</i> *@
+                    <div class='Article-content'>
+                        <div class='Article.information'>
+                            <i class='Article.Author'>Posted by @post.Author</i>
+                            @* <i class='Article.Date'>@Controller.Timeago(post.Utc) days ago</i> *@
                         </div>
-                        <p id='Article.Title'>@post.Title</p>
+                        <p class='Article.Title'>@post.Title</p>
                         <img src=@post.Url>
-                        <div id='Article-footer'>
-                            <span id='Article.numComments'>@post.NumComments Comments</span>
+                        <div class='Article-footer'>
+                            <span class='Article.numComments'>@post.NumComments Comments</span>
                             <a href="@post.Link"><button>View On Reddit</button></a>
                             <button @onclick="@(() => Controller.fetch("comments", @post, @post.Link))">View Submissions</button>
                         </div>
@@ -65,9 +65,12 @@ else
                         {
                             <div class="Article-Comments">
                                 <a href="@comment.Src" target= "_blank"><p>@comment.Body</p></a>
+                                @if (comment.HasImage)
+                                {
+                                    <img src="@comment.Src" alt="@comment.Title" onerror="">
+                                }
                             </div>
                         }
-                        
                     }
                 </article>
             }
