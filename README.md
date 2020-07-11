@@ -40,7 +40,7 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
          > ["hot","new","rising","top"]
       -  [x] Load method to GET more Articles via last child's ID...
              `data.data.children[Object.keys(data.data.children).length - 1].data.name;`
--  [ ] Create Method to GET Article Comments
+-  [x] Create Method to GET Article Comments
 
 ### Render data from Api
 
@@ -84,14 +84,14 @@ Cleaner UI for browsing photoshopped images, utilizing the same Reddit UI Hierar
 ### Add Event handlers
 
 -  [x] Method/Button for Sorting
--  [ ] OnClick on Article
-   -  [ ] Call Load Method for Article Content/Comments
-      -  [ ] Render only images
+-  [x] OnClick on Article
+   -  [x] Call Load Method for Article Content/Comments
+      -  [x] Render only images
       -  [ ] \(OPTIONAL) Toggle button for showing all comments
-   -  [ ] View Content
+   -  [x] View Content
       -  [ ] Render in Modal
       -  [ ] \(OPTIONAL) Redirect URL with Article ID as Query
--  [ ] Method to return to last search
+-  [x] Method to return to last search
 
 ### Add Some Spicy CSS \(Keep It Simple)
 
