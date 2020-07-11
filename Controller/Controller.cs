@@ -65,11 +65,7 @@ namespace RedditClientViewer.Data
 
         public static void GetCommentsAsync(RedditPost post)
         {
-            RegexOptions OPTIONS = RegexOptions.Multiline | RegexOptions.IgnoreCase;
-            string URL_REGEX = @"ht(\w)+:\/\/(\w)+.(\w)+(\/)?(\w)+.(\w)+(\/?)(\w?)+(\.?)(\w?)+";
-            // Created and tested @ https://regex101.com/r/MiGGnF/3
-            string TITLE_REGEX = @"\[(.+)]";
-            // Created and tested @ https://regex101.com/r/MiGGnF/4
+
             int index = Api.Posts.IndexOf(post);
             RedditPost Post = Api.Posts[index];
 
@@ -77,45 +73,47 @@ namespace RedditClientViewer.Data
             {
                 var data = child["data"];
                 bool IsComment = (string)child["kind"] != "more";
-                bool IsNotDeleted = (string)data["author"] != "[deleted]";
-                bool IsNotControversial = (int)data["score"] > 0;
 
-                if (IsComment && IsNotDeleted && IsNotControversial)
-                {
-                    try
+                if (IsComment) try
                     {
-                        /** For DEBUGGING Json Data
-                        Console.WriteLine($"Score Greater than 0? {(int)data["score"] > 0}");
-                        Console.WriteLine($"Is Not Deleted? {(string)data["author"] != "[deleted]"}");
-                        Console.WriteLine("Author:\t" + (string)data["author"]);
-                        Console.WriteLine("Score:\t" + (int)data["score"]);
-                        Console.WriteLine("UTC:\t" + (string)data["created_utc"]);
-                        Console.WriteLine("Body:\t" + (string)data["body"]);
-                        Console.WriteLine("Link:\t" + (string)$"{Api.DOMAIN}{data["permalink"]}");
-                        Console.WriteLine("URL:\t" + Regex.Match((string)data["body"], URL_REGEX, OPTIONS));
-                        Console.WriteLine("Title:\t" + Regex.Match((string)data["body"], TITLE_REGEX, OPTIONS));
-                        Console.WriteLine("\n");
-                        */
-
-                        var comment = new RedditComment
+                        bool IsNotDeleted = (string)data["author"] != "[deleted]";
+                        bool IsNotControversial = (int)data["score"] > 0;
+                        if (IsNotDeleted && IsNotControversial)
                         {
-                            Author = (string)data["author"],
-                            Score = (int)data["score"],
-                            Utc = (string)data["created_utc"],
-                            Body = (string)data["body"],
-                            Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
-                            Src = Regex.Match((string)data["body"], URL_REGEX, OPTIONS),
-                            Title = Regex.Match((string)data["body"], TITLE_REGEX, OPTIONS),
-                            Replies = data["replies"],
-                        };
-                        Api.Posts[index].Comments.Add(comment);
+                            /** For DEBUGGING Json Data
+                            Console.WriteLine($"Score Greater than 0? {(int)data["score"] > 0}");
+                            Console.WriteLine($"Is Not Deleted? {(string)data["author"] != "[deleted]"}");
+                            Console.WriteLine("Author:\t" + (string)data["author"]);
+                            Console.WriteLine("Score:\t" + (int)data["score"]);
+                            Console.WriteLine("UTC:\t" + (string)data["created_utc"]);
+                            Console.WriteLine("Body:\t" + (string)data["body"]);
+                            Console.WriteLine("Link:\t" + (string)$"{Api.DOMAIN}{data["permalink"]}");
+                            Console.WriteLine("URL:\t" + Regex.Match((string)data["body"], URL_REGEX, OPTIONS));
+                            Console.WriteLine("Title:\t" + Regex.Match((string)data["body"], TITLE_REGEX, OPTIONS));
+                            Console.WriteLine("\n");
+                            */
+
+                            var comment = new RedditComment
+                            {
+                                Author = (string)data["author"],
+                                Score = (int)data["score"],
+                                Utc = (string)data["created_utc"],
+                                Body = (string)data["body"],
+                                Link = (string)$"{Api.DOMAIN}{data["permalink"]}",
+                                Replies = data["replies"]
+                            };
+                            Api.Posts[index].Comments.Add(comment);
+                            Console.WriteLine($"Title: {comment.Title}");
+                            Console.WriteLine($"Is image? {comment.HasImage}");
+                        }
+
                     }
-                    catch (ArgumentNullException)
+                    catch (System.ArgumentNullException)
                     {
                         // If Comment Cannot be parsed, catch error
                         return;
                     }
-                }
+
             }
         }
 
