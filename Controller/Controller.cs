@@ -65,7 +65,6 @@ namespace RedditClientViewer.Data
 
         public static void GetCommentsAsync(RedditPost post)
         {
-
             int index = Api.Posts.IndexOf(post);
             RedditPost Post = Api.Posts[index];
 
@@ -80,19 +79,6 @@ namespace RedditClientViewer.Data
                         bool IsNotControversial = (int)data["score"] > 0;
                         if (IsNotDeleted && IsNotControversial)
                         {
-                            /** For DEBUGGING Json Data
-                            Console.WriteLine($"Score Greater than 0? {(int)data["score"] > 0}");
-                            Console.WriteLine($"Is Not Deleted? {(string)data["author"] != "[deleted]"}");
-                            Console.WriteLine("Author:\t" + (string)data["author"]);
-                            Console.WriteLine("Score:\t" + (int)data["score"]);
-                            Console.WriteLine("UTC:\t" + (string)data["created_utc"]);
-                            Console.WriteLine("Body:\t" + (string)data["body"]);
-                            Console.WriteLine("Link:\t" + (string)$"{Api.DOMAIN}{data["permalink"]}");
-                            Console.WriteLine("URL:\t" + Regex.Match((string)data["body"], URL_REGEX, OPTIONS));
-                            Console.WriteLine("Title:\t" + Regex.Match((string)data["body"], TITLE_REGEX, OPTIONS));
-                            Console.WriteLine("\n");
-                            */
-
                             var comment = new RedditComment
                             {
                                 Author = (string)data["author"],
